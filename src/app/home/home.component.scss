@@ -1,16 +1,50 @@
 .mat-form-field + .mat-form-field {
-    margin-left: 8px;
-  }
+  margin-left: 8px;
+}
 
-  .finish-button{
+.finish-button {
+  color: green;
+}
 
-    color: green;
-  }
+.edit-button {
+  color: black;
+}
 
-  .done{
-    text-decoration: line-through;
-  }
+.delete-button {
+  color: red;
+}
 
-  .row{
-    display: flex; justify-content: flex-end;
-  }
+.done {
+  text-decoration: line-through;
+}
+
+.row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.title {
+  color: blue;
+  text-align: center;
+}
+
+.buttons {
+  text-align: center;
+  margin: 1%;
+}
+
+table {
+  width: 100%;
+}
+
+#tasks-header {
+  width: 70%;
+}
+
+th{
+  color: blue;
+}
+
+button{
+  margin: 0 5px;
+}

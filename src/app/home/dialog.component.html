@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+  <p>Type your task</p>
+  <mat-form-field>
+    <mat-label>Tasks</mat-label>
+    <input matInput required [(ngModel)]="data.text">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-button mat-dialog-close (click)="saveTask(data)" [disabled]="data.text == '' || data.text == null || data.text == undefined" cdkFocusInitial>Save</button>
+</div>

@@ -1,16 +1,27 @@
-<button mat-button color="primary" (click)="save()">Criar Tarefa</button>
-<button mat-button color="primary" (click)="deleteAll()">Deletar Tarefa</button>
-<mat-accordion>
-    <mat-expansion-panel *ngFor="let task of taskList" hideToggle>
-        <mat-expansion-panel-header>
-            <mat-panel-title [ngClass]="{'done':task.taskState==='DONE'}">
-                {{task.text}}
-            </mat-panel-title>
-            <mat-panel-description class="row">
-                <button class="finish-button" mat-button color (click)="update(task)">Finalizar tarefa</button>
-            </mat-panel-description>
-        </mat-expansion-panel-header>
-        <button mat-button color="primary">Editar</button>
-        <button mat-button color="warn">Excluir</button>
-    </mat-expansion-panel>
-</mat-accordion>
+<mat-card class="title">My To-Do List</mat-card>
+
+<table mat-table [dataSource]="taskList">
+
+    <ng-container matColumnDef="tasks">
+        <th id="tasks-header" mat-header-cell *matHeaderCellDef> Tasks </th>
+        <td mat-cell *matCellDef="let task" [ngClass]="{'done':task.taskState==='DONE'}"> {{task.text}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let task">
+            <button class="edit-button" mat-icon-button (click)="openDialog()">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button class="delete-button" mat-stroked-button (click)="delete(task)">Delete</button>
+            <button class="finish-button" mat-stroked-button (click)="update(task)">Finish</button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<div class="buttons">
+<button mat-stroked-button color="primary" (click)="openDialog('ADD', task)">Add</button>
+    <button mat-stroked-button color="primary" (click)="clear()">Clear</button>
+</div>
