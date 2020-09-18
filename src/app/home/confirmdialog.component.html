@@ -1,8 +1,9 @@
 <div mat-dialog-content>
-    <p>Do you want to delete this task?</p>
+    <p *ngIf="data.action=== 'DELETE'">Do you want to delete this task?</p>
+    <p *ngIf="data.action=== 'CLEAR'">Do you want to clear tasks?</p>
 </div>
 
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Close</button>
-  <button mat-button mat-dialog-close (click)="delete(data)" cdkFocusInitial>Confirm</button>
+  <button mat-button mat-dialog-close (click)="delete(data.task)" cdkFocusInitial>Confirm</button>
 </div>

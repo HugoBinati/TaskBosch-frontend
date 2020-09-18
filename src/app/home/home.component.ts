@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit {
   openConfirmDialog(action: string, task: Task): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '250px',
-      data: task
+      data: {task: task, action: action}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -115,7 +115,7 @@ export class ConfirmDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Task) {}
+    @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   onNoClick(): void {
     this.dialogRef.close();

@@ -13,7 +13,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DialogComponent, HomeComponent } from './home/home.component';
+import { DialogComponent, HomeComponent, ConfirmDialogComponent } from './home/home.component';
 import {MatInputModule} from '@angular/material/input';
 
 
@@ -23,7 +23,8 @@ import {MatInputModule} from '@angular/material/input';
   declarations: [
     AppComponent,
     HomeComponent,
-    DialogComponent
+    DialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
