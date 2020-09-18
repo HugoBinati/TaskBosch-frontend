@@ -13,7 +13,7 @@
             <button class="edit-button" mat-icon-button (click)="openDialog('EDIT', task)">
                 <mat-icon>edit</mat-icon>
             </button>
-            <button class="delete-button" mat-stroked-button (click)="openConfirmDialog()">Delete</button>
+            <button class="delete-button" mat-stroked-button (click)="openConfirmDialog(task)">Delete</button>
             <button *ngIf="task.taskState === 'OPEN'" class="finish-button" mat-stroked-button (click)="changeState(task, 'DONE')">Finish</button>
             <button *ngIf="task.taskState === 'DONE'" class="finish-button" mat-stroked-button (click)="changeState(task, 'OPEN')">Open</button>
         </td>

@@ -117,7 +117,7 @@ export class ConfirmDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
+  
     delete(t): void {
     this.dialogRef.close(t);
   }
