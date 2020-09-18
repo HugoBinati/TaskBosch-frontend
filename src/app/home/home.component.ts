@@ -70,14 +70,17 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  openConfirmDialog(task: Task): void {
+  openConfirmDialog(action: string, task: Task): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '250px',
       data: task
     });
 
     dialogRef.afterClosed().subscribe(result => {
+     if (action=== 'DELETE')
       this.delete(task);
+      else if(action=== 'CLEAR')
+      this.clear();
     });
   }
 

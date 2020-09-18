@@ -50,6 +50,6 @@ button{
 }
 
 td{
-  overflow: hidden;
+  overflow: -moz-hidden-unscrollable;;
   max-width: 315px;
 }
