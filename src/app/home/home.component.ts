@@ -60,11 +60,11 @@ export class HomeComponent implements OnInit {
       data: task
     });
 
-    dialogRef.afterClosed().subscribe(text => {
-      if (task !== undefined && action ==='ADD')
-        this.save(task);
-      else if (task !== undefined && action ==='EDIT')
-        this.updateTask(task);
+    dialogRef.afterClosed().subscribe(t => {
+      if (t !== undefined && action ==='ADD')
+        this.save(t);
+      else if (t !== undefined && action ==='EDIT')
+        this.updateTask(t);
       else 
         this.findAll();
     });
@@ -77,10 +77,12 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-     if (action=== 'DELETE')
+     if (result !== undefined && action=== 'DELETE')
       this.delete(task);
-      else if(action=== 'CLEAR')
+      else if(result !== undefined && action=== 'CLEAR')
       this.clear();
+      else
+      this.findAll();
     });
   }
 
@@ -93,15 +95,19 @@ export class HomeComponent implements OnInit {
 })
 export class DialogComponent {
 
+  taskData: Task;
+
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Task) { }
+    @Inject(MAT_DIALOG_DATA) public data: Task) {
+      this.taskData = Object.assign({}, data);
+     }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  saveTask(t) {
+  saveTask(t: Task) {
     this.dialogRef.close(t);
   }
 

@@ -1,11 +1,11 @@
 <div mat-dialog-content>
   <p>Type your task</p>
-  <mat-form-field>
+  <mat-form-field class="full-width">
     <mat-label>Tasks</mat-label>
-    <input matInput required [(ngModel)]="data.text">
+    <textarea style="height: 80px;" matInput required [(ngModel)]="taskData.text"></textarea>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Close</button>
-  <button mat-button mat-dialog-close (click)="saveTask(data)" [disabled]="data.text == '' || data.text == null || data.text == undefined" cdkFocusInitial>Save</button>
+  <button color="warn" mat-button (click)="onNoClick()">Close</button>
+  <button color="primary" mat-button mat-dialog-close (click)="saveTask(taskData)" [disabled]="taskData.text == '' || taskData.text == null || taskData.text == undefined">Save</button>
 </div>
