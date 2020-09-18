@@ -10,11 +10,12 @@
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let task">
-            <button class="edit-button" mat-icon-button (click)="openDialog()">
+            <button class="edit-button" mat-icon-button (click)="openDialog('EDIT', task)">
                 <mat-icon>edit</mat-icon>
             </button>
-            <button class="delete-button" mat-stroked-button (click)="delete(task)">Delete</button>
-            <button class="finish-button" mat-stroked-button (click)="update(task)">Finish</button>
+            <button class="delete-button" mat-stroked-button (click)="openConfirmDialog()">Delete</button>
+            <button *ngIf="task.taskState === 'OPEN'" class="finish-button" mat-stroked-button (click)="changeState(task, 'DONE')">Finish</button>
+            <button *ngIf="task.taskState === 'DONE'" class="finish-button" mat-stroked-button (click)="changeState(task, 'OPEN')">Open</button>
         </td>
     </ng-container>
 
@@ -22,6 +23,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <div class="buttons">
-<button mat-stroked-button color="primary" (click)="openDialog('ADD', task)">Add</button>
+    <button mat-stroked-button color="primary" (click)="openDialog('ADD')">Add</button>
     <button mat-stroked-button color="primary" (click)="clear()">Clear</button>
 </div>

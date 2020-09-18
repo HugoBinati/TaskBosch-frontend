@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   panelOpenState = false;
   taskList: Task[];
   displayedColumns: string[] = ['tasks', 'actions',];
+  
 
   constructor(protected _http: HttpClient, public dialog: MatDialog) { }
 
@@ -32,6 +33,10 @@ export class HomeComponent implements OnInit {
     this._http.post<any>(environment.apiUrl + '/tasks', task.text).subscribe(res => { this.findAll(); });
   }
 
+  changeState(task: Task, taskState: TaskState) {
+    task.taskState = taskState;
+    this._http.put(environment.apiUrl + '/tasks/' + task.id, task).subscribe(res => { this.findAll(); });
+  }
   update(task: Task) {
     task.taskState = TaskState.DONE;
     this._http.put(environment.apiUrl + '/tasks/' + task.id, task).subscribe(res => { this.findAll(); });
@@ -49,17 +54,33 @@ export class HomeComponent implements OnInit {
     this._http.delete(environment.apiUrl + '/tasks/' + task.id).subscribe(res => { this.findAll(); });
   }
 
-  openDialog(task: Task = new Task()): void {
+  openDialog(action: string, task: Task = new Task()): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '750px',
       data: task
     });
 
     dialogRef.afterClosed().subscribe(text => {
-      if (text !== undefined)
-        this.save(text);
+      if (task !== undefined && action ==='ADD')
+        this.save(task);
+      else if (task !== undefined && action ==='EDIT')
+        this.updateTask(task);
+      else 
+        this.findAll();
     });
   }
+
+  openConfirmDialog(task: Task): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '250px',
+      data: task
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.delete(task);
+    });
+  }
+
 
 }
 
@@ -71,13 +92,33 @@ export class DialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public  data: {object: task, action: action}) { }
+    @Inject(MAT_DIALOG_DATA) public data: Task) { }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   saveTask(t) {
+    this.dialogRef.close(t);
+  }
+
+}
+
+@Component({
+  selector: 'confirm-dialog-component',
+  templateUrl: './confirmdialog.component.html',
+})
+export class ConfirmDialogComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<ConfirmDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Task) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+    delete(t): void {
     this.dialogRef.close(t);
   }
 
